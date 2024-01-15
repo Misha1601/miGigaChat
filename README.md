@@ -1,0 +1,2 @@
+# miGigaChat
+Для тестирования GigaChat
