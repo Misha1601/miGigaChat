@@ -1,23 +1,26 @@
 """Пример работы с чатом через gigachain"""
 from GIGACHAT_CREDENTIALS import Scope
 from langchain.schema import HumanMessage, SystemMessage
-from langchain.chat_models.gigachat import GigaChat
+from langchain_gigachat.chat_models import GigaChat
 
-# Авторизация в сервисе GigaChat
-chat = GigaChat(credentials=Scope)
+giga = GigaChat(
+    # Для авторизации запросов используйте ключ, полученный в проекте GigaChat API
+    credentials=Scope,
+    verify_ssl_certs=False,
+)
 
 messages = [
     SystemMessage(
-        content="Ты специалист по английскому языку, который помогает его изучать"
+        content="Ты эмпатичный бот-психолог, который помогает пользователю решить его проблемы."
     )
 ]
-# print(chat.get_models())
-# print(chat.tokens_count(['Привет, ты кто?', 'Я властелин мира жажущий покоя!']))
-# print(chat.get_num_tokens('Я властелин мира жажущий покоя!'))
+
 while(True):
-    user_input = input("User: ")
+    user_input = input("Пользователь: ")
+    if user_input == "пока":
+      break
     messages.append(HumanMessage(content=user_input))
-    res = chat(messages)
+    res = giga.invoke(messages)
     messages.append(res)
-    print("Bot: ", res.content)
+    print("GigaChat: ", res.content)
 
