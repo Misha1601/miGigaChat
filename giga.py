@@ -1,11 +1,13 @@
 """Пример работы с чатом через gigachain"""
-from GIGACHAT_CREDENTIALS import Scope
+from GIGACHAT_CREDENTIALS import Scope, AuthorizationKey, ModelGigaChat
 from langchain.schema import HumanMessage, SystemMessage
 from langchain_gigachat.chat_models import GigaChat
 
 giga = GigaChat(
     # Для авторизации запросов используйте ключ, полученный в проекте GigaChat API
-    credentials=Scope,
+    credentials=AuthorizationKey,
+    scope=Scope,
+    model=ModelGigaChat,
     verify_ssl_certs=False,
 )
 
@@ -15,12 +17,12 @@ messages = [
     )
 ]
 
-# while(True):
-#     user_input = input("Пользователь: ")
-#     if user_input == "пока":
-#       break
-#     messages.append(HumanMessage(content=user_input))
-#     res = giga.invoke(messages)
-#     messages.append(res)
-#     print("GigaChat: ", res.content)
+while(True):
+    user_input = input("Пользователь: ")
+    if user_input == "пока":
+      break
+    messages.append(HumanMessage(content=user_input))
+    res = giga.invoke(messages)
+    messages.append(res)
+    print("GigaChat: ", res.content)
 
